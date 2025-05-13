@@ -224,7 +224,7 @@
           <div class="tab-pane fade show active" id="tab-description" role="tabpanel"
             aria-labelledby="tab-description-tab">
             <div class="product-single__description">
-              {{ $product->description }}
+              {!! $product->description !!}
             </div>
           </div>
           <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">

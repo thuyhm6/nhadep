@@ -354,6 +354,8 @@
     <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>   
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>    
     <script src="{{ asset('js/apexcharts/apexcharts.js') }}"></script>
+    <!-- Gọi CKEditor từ thư mục nội bộ -->
+    <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
     <script>
         $(function(){
           $("#search-input").on("keyup", function() {
@@ -394,6 +396,7 @@
           });
         })
       </script>
+      
     <script src="{{ asset('js/main.js') }}"></script>
     
     @stack("scripts");
