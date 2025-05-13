@@ -94,8 +94,7 @@
 
                 <fieldset class="description">
                     <div class="body-title mb-10">Description <span class="tf-color-1">*</span></div>
-                    <textarea class="mb-10" name="description" placeholder="Description" tabindex="0" aria-required="true" required="">{{ old('description') }}</textarea>
-                    <div class="text-tiny">Do not exceed 100 characters when entering the product name.</div>
+                    <textarea class="ckeditor mb-10" name="description" tabindex="0" aria-required="true" required="">{{ old('description') }}</textarea> 
                 </fieldset>
                 @error('description')
                     <span class="alert alert-danger text-center">{{ $message }}</span>
