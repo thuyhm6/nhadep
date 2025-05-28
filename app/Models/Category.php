@@ -11,6 +11,6 @@ class Category extends Model
 
     //Lưu ý đoạn này
     public function products() {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'category_id'); // Thay Product bằng tên của model Product
     }
 }

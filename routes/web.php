@@ -14,6 +14,23 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+// Route::get('/mau-nha-dep', [HomeController::class, 'maunhadep'])->name('home.maunhadep');
+
+//danh mục 
+Route::get('/mau-nha/{mau_nha?}', [HomeController::class, 'maunhadep'])->name('house.list');
+// sản phẩm
+Route::get('/mau-nha-dep/{slug}', [HomeController::class, 'detailProduct'])->name('detailProduct');
+Route::post('/lien-he-bao-gia', [HomeController::class, 'contactHome'])->name('contact.submit');
+Route::get('/tinh-chi-phi', [HomeController::class, 'calculate'])->name('home.calculate');
+
+Route::get('/kienthuc/{mau_nha?}', [HomeController::class, 'maunhadep'])->name('post.list');
+
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::post('/contact', [HomeController::class, 'sendContactMessage'])->name('contact.store');
+
+
+
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/{product_slug}', [ShopController::class, 'productDetails'])->name('shop.product.details');
 
@@ -52,7 +69,7 @@ Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 
 //User Account
 //Chỗ này cần xem lại
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function() { 
     Route::get('/account-dashboard',[UserController::class, 'index'])->name('user.index');
     Route::get('/account-orders', [UserController::class, 'orders'])->name('user.account.orders');
     Route::get('/account-order-details/{orderId}', [UserController::class, 'accountOrderDetails'])->name('user.account.orders.details');
@@ -110,6 +127,7 @@ Route::middleware(['auth', AuthAdmin::class])->group(function() {
     Route::delete('/admin/category/{id}/delete', [AdminController::class, 'deleteCategory'])->name('admin.category.delete'); /* Lưu ý cái này */
 
     //Products
+    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
     Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
     Route::get('/admin/product/add', [AdminController::class, 'addProduct'])->name('admin.product.add');
     Route::post('/admin/product/store', [AdminController::class,'storeProduct'])->name('admin.product.store');
@@ -117,37 +135,64 @@ Route::middleware(['auth', AuthAdmin::class])->group(function() {
     Route::get('/admin/product/view/{id}', [AdminController::class, 'viewProduct'])->name('admin.product.view');
     Route::put('/admin/product/update', [AdminController::class, 'updateProduct'])->name('admin.product.update'); /* Lưu ý cái này */
     Route::delete('/admin/product/{id}/delete', [AdminController::class, 'deleteProduct'])->name('admin.product.delete'); /* Lưu ý cái này */
+    
+    //CategoryPost
+    Route::get('/admin/categoryPosts', [AdminController::class, 'categoryPosts'])->name('admin.categoryPosts');
+    Route::get('/admin/categoryPost/add', [AdminController::class, 'addCategoryPost'])->name('admin.categoryPost.add');
+    Route::post('/admin/categoryPost/store', [AdminController::class,'storeCategoryPost'])->name('admin.categoryPost.store');
+    Route::get('/admin/categoryPost/edit/{id}', [AdminController::class, 'editCategoryPost'])->name('admin.categoryPost.edit');
+    Route::put('/admin/categoryPost/update', [AdminController::class, 'updateCategoryPost'])->name('admin.categoryPost.update'); /* Lưu ý cái này */
+    Route::delete('/admin/categoryPost/{id}/delete', [AdminController::class, 'deleteCategoryPost'])->name('admin.categoryPost.delete'); /* Lưu ý cái này */
+
+    //Posts
+    Route::get('/admin/posts', [AdminController::class, 'posts'])->name('admin.posts');
+    Route::get('/admin/post/add', [AdminController::class, 'addPost'])->name('admin.post.add');
+    Route::post('/admin/post/store', [AdminController::class,'storePost'])->name('admin.post.store');
+    Route::get('/admin/post/edit/{id}', [AdminController::class, 'editPost'])->name('admin.post.edit');
+    Route::get('/admin/post/view/{id}', [AdminController::class, 'viewPost'])->name('admin.post.view');
+    Route::put('/admin/post/update', [AdminController::class, 'updatePost'])->name('admin.post.update'); /* Lưu ý cái này */
+    Route::delete('/admin/post/{id}/delete', [AdminController::class, 'deletePost'])->name('admin.post.delete'); /* Lưu ý cái này */
+
+
+
+
+
+
 
     //Orders
-    Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
-    Route::get('/admin/order/{id}', [AdminController::class, 'orderDetail'])->name('admin.order.detail');
+    // Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
+    // Route::get('/admin/order/{id}', [AdminController::class, 'orderDetail'])->name('admin.order.detail');
 
-    //Coupon
-    Route::get('/admin/coupons', [AdminController::class, 'coupons'])->name('admin.coupons');
-    Route::get('/admin/coupon/add', [AdminController::class, 'addCoupon'])->name('admin.coupon.add');
-    Route::post('/admin/coupon/store', [AdminController::class,'storeCoupon'])->name('admin.coupon.store');
-    Route::get('/admin/coupon/edit/{id}', [AdminController::class, 'editCoupon'])->name('admin.coupon.edit');
-    Route::put('/admin/coupon/update', [AdminController::class, 'updateCoupon'])->name('admin.coupon.update'); /* Lưu �� cái này */
-    Route::delete('/admin/coupon/{id}/delete', [AdminController::class, 'deleteCoupon'])->name('admin.coupon.delete'); /* Lưu �� cái này */
+    // //Coupon
+    // Route::get('/admin/coupons', [AdminController::class, 'coupons'])->name('admin.coupons');
+    // Route::get('/admin/coupon/add', [AdminController::class, 'addCoupon'])->name('admin.coupon.add');
+    // Route::post('/admin/coupon/store', [AdminController::class,'storeCoupon'])->name('admin.coupon.store');
+    // Route::get('/admin/coupon/edit/{id}', [AdminController::class, 'editCoupon'])->name('admin.coupon.edit');
+    // Route::put('/admin/coupon/update', [AdminController::class, 'updateCoupon'])->name('admin.coupon.update'); /* Lưu �� cái này */
+    // Route::delete('/admin/coupon/{id}/delete', [AdminController::class, 'deleteCoupon'])->name('admin.coupon.delete'); /* Lưu �� cái này */
 
-    //Orders
-    Route::get('/admin/order', [AdminController::class, 'orders'])->name('admin.orders');
-    Route::get('/admin/order/items/{orderId}', [AdminController::class, 'orderDetails'])->name('admin.order.items');
-    Route::put('/admin/order/update', [AdminController::class, 'updateOrderStatus'])->name('admin.order.status.update');
+    // //Orders
+    // Route::get('/admin/order', [AdminController::class, 'orders'])->name('admin.orders');
+    // Route::get('/admin/order/items/{orderId}', [AdminController::class, 'orderDetails'])->name('admin.order.items');
+    // Route::put('/admin/order/update', [AdminController::class, 'updateOrderStatus'])->name('admin.order.status.update');
 
-    //Slider
-    Route::get('/admin/slides', [AdminController::class, 'slides'])->name('admin.slides');
-    Route::get('/admin/slide/add', [AdminController::class, 'addSlide'])->name('admin.slide.add');
-    Route::post('/admin/slide/store', [AdminController::class,'storeSlide'])->name('admin.slide.store');
-    Route::get('/admin/slide/edit/{id}', [AdminController::class, 'editSlide'])->name('admin.slide.edit');
-    Route::put('/admin/slide/update', [AdminController::class, 'updateSlide'])->name('admin.slide.update'); /* Lưu �� cái này */
-    Route::delete('/admin/slide/{id}/delete', [AdminController::class, 'deleteSlide'])->name('admin.slide.delete'); /* Lưu �� cái này */
+    // //Slider
+    // Route::get('/admin/slides', [AdminController::class, 'slides'])->name('admin.slides');
+    // Route::get('/admin/slide/add', [AdminController::class, 'addSlide'])->name('admin.slide.add');
+    // Route::post('/admin/slide/store', [AdminController::class,'storeSlide'])->name('admin.slide.store');
+    // Route::get('/admin/slide/edit/{id}', [AdminController::class, 'editSlide'])->name('admin.slide.edit');
+    // Route::put('/admin/slide/update', [AdminController::class, 'updateSlide'])->name('admin.slide.update'); /* Lưu �� cái này */
+    // Route::delete('/admin/slide/{id}/delete', [AdminController::class, 'deleteSlide'])->name('admin.slide.delete'); /* Lưu �� cái này */
 
-    //Contact
-    Route::get('/admin/contacts', [AdminController::class, 'contacts'])->name('admin.contacts');
-    Route::get('/admin/contact/{id}', [AdminController::class, 'viewContact'])->name('admin.contact.view');
-    Route::delete('/admin/contact/delete/{id}', [AdminController::class, 'deleteContact'])->name('admin.contact.delete');
+    // //Contact
+    // Route::get('/admin/contacts', [AdminController::class, 'contacts'])->name('admin.contacts');
+    // Route::get('/admin/contact/{id}', [AdminController::class, 'viewContact'])->name('admin.contact.view');
+    // Route::delete('/admin/contact/delete/{id}', [AdminController::class, 'deleteContact'])->name('admin.contact.delete');
 
-    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
 
 });
+
+
+
+
+

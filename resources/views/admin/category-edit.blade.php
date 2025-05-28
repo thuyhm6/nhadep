@@ -46,6 +46,7 @@
                 @error('slug') 
                     <span class="alert alert-danger text-center">{{ $message }}</span>
                 @enderror
+                
                 <fieldset>
                     <div class="body-title">Upload images <span class="tf-color-1">*</span>
                     </div>

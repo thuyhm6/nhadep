@@ -117,22 +117,41 @@
                                 <li class="menu-item has-children">
                                     <a href="javascript:void(0)" class="menu-item-button">
                                         <div class="icon"><i class="icon-file-plus"></i></div>
-                                        <div class="text">Order</div>
+                                        <div class="text">Post</div>
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="{{ route('admin.orders') }}" class="">
-                                                <div class="text">Orders</div>
+                                            <a href="{{ route('admin.post.add') }}" class="">
+                                                <div class="text">Add post</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="order-tracking.html" class="">
-                                                <div class="text">Order tracking</div>
+                                            <a href="{{route('admin.posts')}}" class="">
+                                                <div class="text">Posts</div>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="menu-item">
+
+                                <li class="menu-item has-children">
+                                    <a href="javascript:void(0)" class="menu-item-button">
+                                        <div class="icon"><i class="icon-file-plus"></i></div>
+                                        <div class="text">Category-Post</div>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="sub-menu-item">
+                                            <a href="{{ route('admin.categoryPost.add') }}" class="">
+                                                <div class="text">Add category-post</div>
+                                            </a>
+                                        </li>
+                                        <li class="sub-menu-item">
+                                            <a href="{{route('admin.categoryPosts')}}" class="">
+                                                <div class="text">Categories-posts</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {{-- <li class="menu-item">
                                     <a href="javascript:void(0)" class="">
                                         <div class="icon"><i class="icon-image"></i></div>
                                         <div class="text">Slides</div>
@@ -149,7 +168,7 @@
                                         <div class="icon"><i class="icon-mail"></i></div>
                                         <div class="text">Messages</div>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="menu-item">
                                     <a href="{{ route('admin.users') }}" class="">
@@ -355,7 +374,7 @@
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>    
     <script src="{{ asset('js/apexcharts/apexcharts.js') }}"></script>
     <!-- Gọi CKEditor từ thư mục nội bộ -->
-    <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         $(function(){
           $("#search-input").on("keyup", function() {
@@ -396,7 +415,6 @@
           });
         })
       </script>
-      
     <script src="{{ asset('js/main.js') }}"></script>
     
     @stack("scripts");
